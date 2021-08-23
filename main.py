@@ -18,6 +18,9 @@ def main():
     imagem_inicial = Image.open("default.jpg")
     arquivo_imagem = st.file_uploader("Carregar imagem...", type=['jpg', 'jpeg', 'png'])
 
+    st.sidebar.text("Imagem original:")
+    st.sidebar.image(imagem_inicial)
+
 
     if arquivo_imagem is not None:
         imagem_inicial = Image.open(arquivo_imagem)
