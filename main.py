@@ -15,17 +15,26 @@ def main():
     st.sidebar.selectbox("Selecione...", opcoes_menu)
 
     # Upload de imagem
+    img = st.empty() # Referência da exibição pricipal da imagem
     imagem_inicial = Image.open("default.jpg")
     arquivo_imagem = st.file_uploader("Carregar imagem...", type=['jpg', 'jpeg', 'png'])
 
     st.sidebar.text("Imagem original:")
-    st.sidebar.image(imagem_inicial)
-
 
     if arquivo_imagem is not None:
         imagem_inicial = Image.open(arquivo_imagem)
 
-    st.image(imagem_inicial)
+    img.image(imagem_inicial)
+    st.sidebar.image(imagem_inicial, width=300)
+
+    # Opções de filtros
+    filtros = st.sidebar.radio("Filtros", ['Original', 'P & B', 'Gaussian Blur'])
+
+    if filtros == 'P & B':
+        imagem_convertida = np.array(imagem_inicial.convert('RGB'))
+        pb_img = cv2.cvtColor(imagem_convertida, cv2.COLOR_RGB2GRAY)
+        img.image(pb_img)
+
 
 if __name__ == '__main__':
     main()
