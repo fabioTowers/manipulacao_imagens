@@ -1,16 +1,28 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Pacotes necessários
+import streamlit as st
+import numpy as np
+import cv2
+from PIL import Image, ImageEnhance
 
 
-# Press the green button in the gutter to run the script.
+def main():
+    st.title("Manipulação de imagens com OpenCV")
+    st.markdown("Aplicação de filtro em imagens usando o pacote OpenCV do **Python**.")
+    st.sidebar.title("Opções")
+
+    # Opções de página
+    opcoes_menu = ["Filtros", "Sobre"]
+    st.sidebar.selectbox("Selecione...", opcoes_menu)
+
+    # Upload de imagem
+    imagem_inicial = Image.open("default.jpg")
+    arquivo_imagem = st.file_uploader("Carregar imagem...", type=['jpg', 'jpeg', 'png'])
+
+
+    if arquivo_imagem is not None:
+        imagem_inicial = Image.open(arquivo_imagem)
+
+    st.image(imagem_inicial)
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
