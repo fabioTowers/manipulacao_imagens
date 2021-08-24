@@ -5,6 +5,9 @@ import cv2
 from PIL import Image, ImageEnhance
 
 
+# Excutar a aplicação: streamlit run main.py
+
+
 def main():
     st.title("Manipulação de imagens com OpenCV")
     st.markdown("Aplicação de filtro em imagens usando o pacote OpenCV do **Python**.")
@@ -28,12 +31,20 @@ def main():
     st.sidebar.image(imagem_inicial, width=300)
 
     # Opções de filtros
-    filtros = st.sidebar.radio("Filtros", ['Original', 'P & B', 'Gaussian Blur'])
+    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur'])
 
-    if filtros == 'P & B':
+    if filtros == 'Grayscale':
         imagem_convertida = np.array(imagem_inicial.convert('RGB'))
         pb_img = cv2.cvtColor(imagem_convertida, cv2.COLOR_RGB2GRAY)
         img.image(pb_img)
+    elif filtros == 'Gaussian Blur':
+        # Deslizante:  3 a 81, default: 27, step=2 (dimensão do kernel deve ser sempre ímpar)
+        k_size = st.sidebar.slider("Kernel (n x n):", 3, 81, 27, step=2)
+        imagem_convertida = np.array(imagem_inicial.convert('RGB'))
+        # Blur é aplicado uniformemente em todos os canais, não necessita conversão p/ BGR
+        blurred_img = cv2.GaussianBlur(imagem_convertida, (k_size, k_size), 0)
+        img.image(blurred_img)
+
 
 
 if __name__ == '__main__':
