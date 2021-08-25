@@ -31,7 +31,7 @@ def main():
     st.sidebar.image(imagem_inicial, width=300)
 
     # Opções de filtros
-    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur', 'Sketch'])
+    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur', 'Sketch', 'Sépia'])
 
     if filtros == 'Grayscale':
         imagem_convertida = np.array(imagem_inicial.convert('RGB'))
@@ -51,8 +51,13 @@ def main():
         blur_img = cv2.GaussianBlur(inv_gray_img, (21, 21), 0, 0)
         sketch_img = cv2.divide(gray_img, 255 - blur_img, scale=256)
         img.image(sketch_img)
-
-
+    elif filtros == 'Sépia':
+        imagem_convertida = np.array(imagem_inicial.convert('RGB'))
+        kernel = np.array([[0.272, 0.534, 0.131],
+                           [0.349, 0.686, 0.168],
+                           [0.393, 0.769, 0.189]])
+        output_img = cv2.filter2D(imagem_convertida, -1, kernel)
+        img.image(output_img)
 
 if __name__ == '__main__':
     main()
