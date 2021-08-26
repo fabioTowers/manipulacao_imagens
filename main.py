@@ -31,7 +31,7 @@ def main():
     st.sidebar.image(imagem_inicial, width=300)
 
     # Opções de filtros
-    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur', 'Sketch', 'Sépia'])
+    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur', 'Sketch', 'Sépia', 'Canny'])
 
     if filtros == 'Grayscale':
         imagem_convertida = np.array(imagem_inicial.convert('RGB'))
@@ -58,6 +58,15 @@ def main():
                            [0.393, 0.769, 0.189]])
         output_img = cv2.filter2D(imagem_convertida, -1, kernel)
         img.image(output_img)
+    elif filtros == 'Canny':
+        imagem_convertida = np.array(imagem_inicial.convert('RGB'))
+        blurred_img = cv2.GaussianBlur(imagem_convertida, (11, 11), 0)
+        st.sidebar.text('Hysteresis Thresholding: ')
+        min_val = st.sidebar.slider("Minimum value:", 10, 300, 100, step=2)
+        max_val = st.sidebar.slider("Maximum value:", 10, 300, 150, step=2)
+        canny_img = cv2.Canny(blurred_img, min_val, max_val)
+        img.image(canny_img)
+
 
 if __name__ == '__main__':
     main()
