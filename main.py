@@ -31,7 +31,7 @@ def main():
     st.sidebar.image(imagem_inicial, width=300)
 
     # Opções de filtros
-    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur', 'Sketch', 'Sépia', 'Canny', 'Contraste'])
+    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur', 'Sketch', 'Sépia', 'Canny', 'Contraste', 'Brilho'])
 
     if filtros == 'Grayscale':
         imagem_convertida = np.array(imagem_inicial.convert('RGB'))
@@ -71,6 +71,12 @@ def main():
         # Objeto de contraste
         enhacer = ImageEnhance.Contrast(imagem_inicial)
         output_img = enhacer.enhance(intensidade)
+        img.image(output_img)
+    elif filtros == 'Brilho':
+        intensidade = st.sidebar.slider("Contraste", 0.0, 2.0, 1.0)
+        # Objeto de brilho
+        enhancer = ImageEnhance.Brightness(imagem_inicial)
+        output_img = enhancer.enhance(intensidade)
         img.image(output_img)
 
 
