@@ -31,7 +31,7 @@ def main():
     st.sidebar.image(imagem_inicial, width=300)
 
     # Opções de filtros
-    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur', 'Sketch', 'Sépia', 'Canny'])
+    filtros = st.sidebar.radio("Filtros", ['Original', 'Grayscale', 'Gaussian Blur', 'Sketch', 'Sépia', 'Canny', 'Contraste'])
 
     if filtros == 'Grayscale':
         imagem_convertida = np.array(imagem_inicial.convert('RGB'))
@@ -66,6 +66,12 @@ def main():
         max_val = st.sidebar.slider("Maximum value:", 10, 300, 150, step=2)
         canny_img = cv2.Canny(blurred_img, min_val, max_val)
         img.image(canny_img)
+    elif filtros == 'Contraste':
+        intensidade = st.sidebar.slider("Contraste", 0.0, 2.0, 1.0)
+        # Objeto de contraste
+        enhacer = ImageEnhance.Contrast(imagem_inicial)
+        output_img = enhacer.enhance(intensidade)
+        img.image(output_img)
 
 
 if __name__ == '__main__':
