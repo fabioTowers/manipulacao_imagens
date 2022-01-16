@@ -71,3 +71,22 @@ sketch_img = cv2.divide(gray_img, 255 - blur_img, scale=256)
 
 E como resultado obtemos um efeito semelhante a um desenho feito a lápis.
 
+### Sépia
+
+Para aplicar o filtro que dá um efeito de sépia na imagem utilizamos a função ``cv2.filter2D()`` que recebe como parâmetros a imagem onde o kernel (uma matriz de números que será multiplicada pela matriz de pixels da imagem) será aplicado, a profundidade e o próprio kernel (matriz):
+
+```python
+converted_img = np.array(default_img.convert('RGB'))
+            kernel = np.array([[0.272, 0.534, 0.131],
+                               [0.349, 0.686, 0.168],
+                               [0.393, 0.769, 0.189]])
+            output_img = cv2.filter2D(converted_img, -1, kernel)
+            img.image(output_img)
+```
+
+O interessante é que é possível obter diversos efeitos diferentes variando os valores do kernel.
+
+O resultado é visto na imagem abaixo:
+
+![Imagem com efeito sépia aplicado](img/sepia.jpeg)
+
