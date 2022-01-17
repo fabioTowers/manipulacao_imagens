@@ -90,3 +90,20 @@ O resultado é visto na imagem abaixo:
 
 ![Imagem com efeito sépia aplicado](img/sepia.jpeg)
 
+### Gaussian Blur
+
+A função ``cv2.GaussianBlur()`` do OpenCV aplica esse filtro nas imagens. O que define o quanto a imagem será "embaçada" é o tamanho do kernel que passamos para a função (o kernel é uma matriz e passamos para a função suas medidas, por exemplo: matriz 3x3 então passaremos (3, 3)).
+
+```python
+blurred_img = cv2.GaussianBlur(converted_img, (k_size, k_size), 0)
+```
+
+É importante ressaltar que o kernel deve ser quandrado (n, n) e sempre um número ímpar, por é necessário que haja um pixel no centro do kernel.
+
+A imagem com o filtro aplicado fica da seguinte forma:
+
+![Imagem com filtro gaussian blur aplicado](img/blur.jpeg)
+
+Esse web app ainda permite que sejam feitos ajustes no tamanho do kernel passado para a função através de um slider:
+
+![Imagem do slider de ajuste do tamanho do kernel](img/ajuste_blur.jpg)
