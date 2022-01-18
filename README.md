@@ -107,3 +107,21 @@ A imagem com o filtro aplicado fica da seguinte forma:
 Esse web app ainda permite que sejam feitos ajustes no tamanho do kernel passado para a função através de um slider:
 
 ![Imagem do slider de ajuste do tamanho do kernel](img/ajuste_blur.jpg)
+
+### Contraste
+
+Para ajustar o contraste da imagem foi utilizado o módulo *ImageEnhance* da biblioteca [**PIL** (**P**ithon **I**maging **L**ibrary)](https://pypi.org/project/Pillow/). Primeiro é criado um objeto *enhancer* a partir da imagem, depois, a partir do objeto criado, chamamos a função ``.enhance()`` passando como argumento a intensidade do contraste e como retorno obtem-se a imagem:
+
+```python
+enhancer = ImageEnhance.Contrast(default_img)
+output_img = enhancer.enhance(intensity)
+img.image(output_img)
+```
+
+Exemplo de uma imagem com baixo contraste:
+
+![Imagem com baixo contraste](img/contrast.jpeg)
+
+A aplicação também permite que o valor do contraste aplicado seja ajustado:
+
+![Ajuste do contraste](img/adjust_contrast.jpg)
